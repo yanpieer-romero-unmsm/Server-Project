@@ -1,6 +1,5 @@
 package io.getarrays.server.resource;
 
-import io.getarrays.server.enumeration.Status;
 import io.getarrays.server.model.Response;
 import io.getarrays.server.model.Server;
 import io.getarrays.server.service.ServerService;
@@ -12,6 +11,7 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.concurrent.TimeUnit;
 
 import static io.getarrays.server.enumeration.Status.SERVER_UP;
 import static java.time.LocalDateTime.now;
@@ -27,7 +27,8 @@ public class ServerResource {
     private final ServerService serverService;
 
     @GetMapping("/list")
-    public ResponseEntity<Response> getServers() {
+    public ResponseEntity<Response> getServers() throws InterruptedException {
+        TimeUnit.SECONDS.sleep(3);
         return ResponseEntity.ok(
                 Response.builder()
                     .timeStamp(now())
